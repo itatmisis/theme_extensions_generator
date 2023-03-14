@@ -1,0 +1,15 @@
+targets:
+  $default:
+    builders:
+      theme_extensions_generator|theme_extension:
+        enabled: true
+
+builders:
+  theme_extension:
+    target: ":theme_extensions_generator"
+    import: "package:theme_extensions_generator/builder.dart"
+    builder_factories: [ "themeExtension" ]
+    build_extensions: { ".dart": [ ".theme_extension.g.part" ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "source_gen|combining_builder" ]
