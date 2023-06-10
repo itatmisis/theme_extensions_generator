@@ -12,7 +12,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   theme_extensions_annotation:
-    path: ../packages/theme_extensions_annotation
+    path: ../theme_extensions_annotation
 
 dev_dependencies:
   flutter_test:
@@ -21,7 +21,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: any
   theme_extensions_generator:
-    path: ../packages/theme_extensions_generator
+    path: ../theme_extensions_generator
 
 flutter:
 
