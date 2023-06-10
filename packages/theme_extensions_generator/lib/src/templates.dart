@@ -198,7 +198,7 @@ class Templates {
     return '''
     
     extension ${themeType}ThemeData on ThemeData {
-      $themeType get $extensionGetterName => this.extension<CustomThemeExtension>()!.theme;
+      $themeType get $extensionGetterName => this.extension<$extensionType>()!.theme;
     }
     
     class $extensionType extends ThemeExtension<$extensionType> {
