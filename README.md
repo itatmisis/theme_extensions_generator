@@ -4,7 +4,7 @@ Flutter provides awesome mechanism for extending a standard theme - Theme extens
 
 - Creating a container class that extends the `ThemeExtension<T>` for storing parameters,
 - Defenition of the container animation when changing the theme by overriding the `lerp` method,
-- Defention of the behavior of the container when changing properties using the `copyWith` method,
+- Defenition of the behavior of the container when changing properties using the `copyWith` method,
 - Optionally, it is possible to create an extension for the `ThemeData` class, which will allow you to simply get the current theme.
 
 Implementing all of this can take hundreds of lines, which are error-prone and affect the readability of your theme significantly.
@@ -41,14 +41,15 @@ All of them are supported by this generator.
 
 - [Motivation](#motivation)
 - [Index](#index)
-- [Install](#install)
-    - [Run the generator](#run-the-generator)
-- [Creating a theme using generator](#creating-a-theme-using-generator)
-    - [Usage in UI](#usage-in-ui)
-    - [What is decoration type](#what-is-decoration-type)
-    - [Lerpable types](#lerpable-types)
-    - [ThemeExtension and ThemeData extension. Nested Declaration](#themeextension-and-themedata-extension-nested-declaration)
-- [ThemeExtension initializing and registration](#themeextension-initializing-and-registration)
+- [How to use](#how-to-use)
+    - [Install](#install)
+        - [Run the generator](#run-the-generator)
+    - [Creating a theme using generator](#creating-a-theme-using-generator)
+        - [Usage in UI](#usage-in-ui)
+        - [What is decoration type](#what-is-decoration-type)
+        - [Lerpable types](#lerpable-types)
+        - [ThemeExtension and ThemeData extension. Nested Declaration](#themeextension-and-themedata-extension-nested-declaration)
+    - [ThemeExtension initializing and registration](#themeextension-initializing-and-registration)
 
 # How to use
 
@@ -87,7 +88,7 @@ part 'my_file.g.dart';
 
 ```
 
-# Creating a theme using generator
+## Creating a theme using generator
 
 An example of a typical theme_extensions_generator class:
 ```dart
@@ -247,7 +248,7 @@ static CustomType? lerp(CustomType? a, CustomType? b, double t)
 
 By default, when using the annotation `@ThemeExtended()` a `ThemeExtension` and an extension for `ThemeData` will be generated. In case you don't need them (for example, if the theme is nested), you can use the annotation `@ThemeExtended.themeOnly()`. In this case, they will not be generated.
 
-# ThemeExtension initializing and registration
+## ThemeExtension initializing and registration
 
 According to the [Flutter documentation](https://api.flutter.dev/flutter/material/ThemeExtension-class.html), to register a theme extension, you need to add the generated `ThemeExtension` class, as shown in the example below:
 ```dart
