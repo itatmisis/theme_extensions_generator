@@ -2,14 +2,15 @@
 
 Flutter provides awesome mechanism for extending a standard theme - Theme extensions. Adding your own extension includes the following steps:
 
-- Создание класса-контейнера, удовлетворяющего интерфейсу `ThemeExtension<T>` для хранения параметров расширения,
-- Описание анимации контейнера при изменении темы с помощью переопределения метода `lerp`,
-- Описание поведения контейнера при изменении свойств с помощью методы `copyWith`,
-- Опционально, возможно создать расширение для класса `ThemeData`, которое позволит лаконично доставать текущую тему из контекста.
+- Creating a container class that extends the `ThemeExtension<T>` for storing parameters,
+- Defenition of the container animation when changing the theme by overriding the `lerp` method,
+- Defention of the behavior of the container when changing properties using the `copyWith` method,
+- Optionally, it is possible to create an extension for the `ThemeData` class, which will allow you to simply get the current theme.
 
-Реализация всего этого может занять сотни строк, что чревато ошибками и существенно влияет на удобочитаемость. Стоит учесть, что Flutter также предоставляет встроенный метод `lerp` для многих встроенных структур. К сожалению классы, имеющие этот метод, не объединены каким либо интерфейсом, что усложняет корректное использование данного функционала. Для числовых типов в Dart также существует `Tween` с похожей функциональностью. 
+Implementing all of this can take hundreds of lines, which are error-prone and affect the readability of your theme significantly.
+It's worth considering that Flutter also provides a built-in `lerp` method for many embedded structures. Unfortunately, the classes that have this method are not unified by any interface, which complicates the correct use of this functionality. For numeric types in Dart, there is also a `Tween` with similar functionality.
 
-Структуры, имеющие `lerp`:
+Structures having `lerp`:
 
 - AlignmentGeometry,
 - Alignment,
@@ -30,7 +31,7 @@ Flutter provides awesome mechanism for extending a standard theme - Theme extens
 - TextStyle,
 - ThemeData.
 
-Все они поддерживаются данным автогенератором.
+All of them are supported by this generator.
 
 | You write                     | Autogen do                       |
 |-------------------------------|----------------------------------|
@@ -40,7 +41,14 @@ Flutter provides awesome mechanism for extending a standard theme - Theme extens
 
 - [Motivation](#motivation)
 - [Index](#index)
-
+- [Install](#install)
+    - [Run the generator](#run-the-generator)
+- [Creating a theme using generator](#creating-a-theme-using-generator)
+    - [Usage in UI](#usage-in-ui)
+    - [What is decoration type](#what-is-decoration-type)
+    - [Lerpable types](#lerpable-types)
+    - [ThemeExtension and ThemeData extension. Nested Declaration](#themeextension-and-themedata-extension-nested-declaration)
+- [ThemeExtension initializing and registration](#themeextension-initializing-and-registration)
 
 # How to use
 
@@ -72,7 +80,6 @@ Note that like most code-generators, theme_extensions_generator will need you to
 and use the `part` keyword on the top of your files.
 
 As such, a file that wants to use theme_extensions_generator will start with:
-
 ```dart
 import 'package:theme_extensions_annotation/theme_extensions_annotation.dart';
 
@@ -80,10 +87,9 @@ part 'my_file.g.dart';
 
 ```
 
-## Creating a theme using generator
+# Creating a theme using generator
 
 An example of a typical theme_extensions_generator class:
-
 ```dart
 import 'package:flutter/material.dart';
 import 'package:theme_extensions_annotation/theme_extension_annotation.dart';
@@ -136,8 +142,7 @@ The following snippet defines two themes named `ActionButtonTheme` and `CustomTh
 
 ### Usage in UI
 
-Для использования в виджете вам необходимо просто получить расширение темы через extension of `ThemeData`: 
-
+To use the widget, you just need to get the theme extension via the extension of `ThemeData`:
 ```dart
 class MyHomePage extends StatelessWidget {
     const MyHomePage({super.key});
@@ -155,8 +160,7 @@ Widget build(BuildContext context) {
 
 ### What is decoration type
 
-Декоративный тип является инструментом, который как просто помогает быстро переопределять поля, задающиеся темой, так и облегчает передачу параметров в конструктор виджета. Декоративные контейнеры имеются и в стандартных Flutter виджетах:
-
+The decoration class is a tool that both simply helps to quickly redefine the fields specified by the theme, and facilitates the transfer of parameters to the widget constructor. Using decoration classes are also popular pattern in standard Flutter widgets:
 ```dart
 Container(
     decoration: BoxDecoration(
@@ -173,8 +177,7 @@ Container(
 )
 ```
 
-theme_extensions_generator генерирует для вас простые структуры вроде:
-
+theme_extensions_generator generates simple structures for you:
 ```dart
 class CustomThemeDecoration {
   final Color? backgroundColor;
@@ -194,8 +197,8 @@ class CustomThemeDecoration {
   });
 }
 ```
-Которые после вы можете использовать при конструировании виджета для переопределения темы:
 
+Which you can then use in a widget constructor to redefine theme parameters:
 ```dart
 class MyHomePage extends StatelessWidget {
     const MyHomePage(
@@ -216,8 +219,7 @@ Widget build(BuildContext context) {
 ```
 ### Lerpable types
 
-Генератор поддерживает все строенные типы, имеющие собственную реализацию `lerp` и автоматически использует их методы. Если для типа не найден `lerp` метод или, если поле не содержит аннотации, оно будет изменяться мгновенно простым копированием:
-
+The generator supports all built-in types that have their own implementation of `lerp` and automatically uses their methods. If no `lerp` method is found for the type, or if the field does not contain annotations, it will be changed instantly:
 ```dart
 static ActionButtonTheme? lerp(
     ActionButtonTheme? a, ActionButtonTheme? b, double t) {
@@ -236,19 +238,18 @@ static ActionButtonTheme? lerp(
 }
 ```
 
-Генератор имееет аннотацию `@ThemeProperty.styled()`, явно говорящую о том, что тип имеет `lerp` метод, удовлетворяющий интерфейсу:
+The generator has an annotation `@ThemeProperty.styled()`, explicitly saying that the type has a `lerp` method that satisfies the interface:
 ```dart
 static CustomType? lerp(CustomType? a, CustomType? b, double t)
 ```
 
 ### ThemeExtension and ThemeData extension. Nested Declaration
 
-По умолчанию при использовании аннотации `@ThemeExtended()` будут сгенерированы `ThemeExtension` контейнер и расширение для `ThemeData`. В случае, если вы не имеете в них необходимости (например, если тема является вложенной), вы можете использовать аннотацию `@ThemeExtended.themeOnly()`. В таком случае они не будут сгенерированы.
+By default, when using the annotation `@ThemeExtended()` a `ThemeExtension` and an extension for `ThemeData` will be generated. In case you don't need them (for example, if the theme is nested), you can use the annotation `@ThemeExtended.themeOnly()`. In this case, they will not be generated.
 
-## ThemeExtension initializing and registration
+# ThemeExtension initializing and registration
 
-Согласно документации Flutter, для регистрации расширения темы, вам необходимо добавить сгенерированный `ThemeExtension` класс, так, как это показано на примере ниже:
-
+According to the [Flutter documentation](https://api.flutter.dev/flutter/material/ThemeExtension-class.html), to register a theme extension, you need to add the generated `ThemeExtension` class, as shown in the example below:
 ```dart
 class Example extends StatelessWidget {
 
