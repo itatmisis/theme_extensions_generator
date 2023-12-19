@@ -1,1 +1,1 @@
-[readme](theme_extensions_generator/README.md)
+theme_extensions_generator/README.md
