@@ -139,6 +139,8 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
         .getField('type')!
         .getField('_name')!
         .toStringValue();
+    var extensionGetterName =
+        annotation.objectValue.getField('extensionGetterName')!.toStringValue();
 
     if (annotationType == 'themeOnly') {
       result += Templates.generateMixin(
@@ -156,7 +158,11 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
       lerpGenerator.addLerpTypename(
           TransformModel.withNamespace(targetType, implementationType));
       result += Templates.generateThemeExtension(
-          extensionType, targetType, lerpGenerator);
+        extensionType,
+        targetType,
+        lerpGenerator,
+        extensionGetterName,
+      );
     }
 
     return result;

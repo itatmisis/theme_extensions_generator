@@ -13,6 +13,7 @@ class Constants {
     'EdgeInsetsGeometry',
     'EdgeInsets',
     'FractionalOffset',
+    'Gradient',
     'Offset',
     'Matrix4',
     'Rect',
@@ -20,6 +21,6 @@ class Constants {
     'ShapeBorder',
     'Size',
     'TextStyle',
-    'ThemeData'
+    'ThemeData',
   ];
 }
