@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:test/test.dart';
 import 'package:theme_extensions_generator/src/lerp_generator.dart';
 import 'package:theme_extensions_generator/src/models.dart';
