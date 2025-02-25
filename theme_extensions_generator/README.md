@@ -22,6 +22,7 @@ Structures having `lerp`:
 - EdgeInsetsGeometry,
 - EdgeInsets,
 - FractionalOffset,
+- Gradient,
 - Offset,
 - Matrix4,
 - Rect,
