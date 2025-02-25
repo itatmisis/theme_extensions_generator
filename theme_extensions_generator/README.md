@@ -257,6 +257,7 @@ You can customize the name of the extension getter by using the `extensionGetter
 class CustomTheme with _$CustomTheme {
   // Your theme implementation
 }
+```
 
 Then use it to access extension:
 
