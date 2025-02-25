@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:test/test.dart';
 import 'package:theme_extensions_generator/src/lerp_generator.dart';
 import 'package:theme_extensions_generator/src/models.dart';
@@ -412,26 +414,46 @@ void main() {
 
 
   group('Templates.generateThemeExtension', () {
-    test('Templates.generateThemeExtension TestType', () {
+    test('Templates.generateThemeExtension TestType (default getter)', () {
       DataType extensionType = DataType('TestTypeExtension');
       DataType themeType = DataType('TestType');
 
       var l = LerpGenerator();
       l.addLerpTypename(TransformModel.withNamespace(themeType, DataType('_TestType')));
 
-      var t = Templates.generateThemeExtension(extensionType, themeType, l);
-      print(t);
-      // expect(t, allOf([
-      //   contains('class TestTypeExtension'),
-      //   contains('ThemeExtension<TestTypeExtension>'),
-      //   contains('final TestType theme'),
-      //   contains('const TestTypeExtension(this.theme)'),
-      //   contains('@override'),
-      //   contains('TestTypeExtension copyWith({TestType? theme})'),
-      //   contains('return TestTypeExtension(theme ?? this.theme)'),
-      //   contains('TestTypeExtension lerp(TestTypeExtension? other, double t)'),
-      //   contains('return TestTypeExtension(_TestType.lerp(theme, other!.theme, t))')
-      // ]));
+      var t = Templates.generateThemeExtension(
+        extensionType,
+        themeType,
+        l,
+        null,
+      );
+
+      expect(t, allOf([
+        contains('TestTypeThemeData'),
+        contains('class TestTypeExtension'),
+        contains('TestType get testTypeExtension => this.extension<TestTypeExtension>()!.theme;'),
+      ]));
+    });
+
+    test('Templates.generateThemeExtension TestType (custom getter)', () {
+      DataType extensionType = DataType('TestTypeExtension');
+      DataType themeType = DataType('TestType');
+
+      var l = LerpGenerator();
+      l.addLerpTypename(TransformModel.withNamespace(themeType, DataType('_TestType')));
+
+      var t = Templates.generateThemeExtension(
+          extensionType,
+          themeType,
+          l,
+          'veryCustomExtensionName',
+      );
+
+      expect(t, allOf([
+        contains('TestTypeThemeData'),
+        contains('class TestTypeExtension'),
+        contains('TestType get veryCustomExtensionName => this.extension<TestTypeExtension>()!.theme;'),
+      ]));
     });
   });
 }
