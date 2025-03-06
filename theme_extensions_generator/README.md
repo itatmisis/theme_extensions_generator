@@ -22,6 +22,7 @@ Structures having `lerp`:
 - EdgeInsetsGeometry,
 - EdgeInsets,
 - FractionalOffset,
+- Gradient,
 - Offset,
 - Matrix4,
 - Rect,
@@ -247,6 +248,23 @@ static CustomType? lerp(CustomType? a, CustomType? b, double t)
 ### ThemeExtension and ThemeData extension. Nested Declaration
 
 By default, when using the annotation `@ThemeExtended()` a `ThemeExtension` and an extension for `ThemeData` will be generated. In case you don't need them (for example, if the theme is nested), you can use the annotation `@ThemeExtended.themeOnly()`. In this case, they will not be generated.
+
+### `extensionGetterName` parameter
+
+You can customize the name of the extension getter by using the `extensionGetterName` parameter:
+
+```dart
+@ThemeExtended(extensionGetterName: 'customTheme')
+class CustomTheme with _$CustomTheme {
+  // Your theme implementation
+}
+```
+
+Then use it to access extension:
+
+```dart
+var theme = Theme.of(context).customTheme;
+```
 
 ## ThemeExtension initializing and registration
 

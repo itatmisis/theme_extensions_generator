@@ -187,13 +187,18 @@ class Templates {
   }
 
   static String generateThemeExtension(
-      DataType extensionType, DataType themeType, LerpGenerator generator) {
+    DataType extensionType,
+    DataType themeType,
+    LerpGenerator generator,
+    String? extensionGetterName,
+  ) {
     var lerpType = generator.transformFunction(themeType);
 
     if (lerpType is! LerpGeneratorResultFound)
       throw UnsupportedError('Theme class not registered in lerpGenerator');
 
-    var extensionGetterName = extensionType.name[0].toLowerCase() + extensionType.name.substring(1);
+    extensionGetterName ??=
+        extensionType.name[0].toLowerCase() + extensionType.name.substring(1);
 
     return '''
     
