@@ -91,7 +91,7 @@ and use the `part` keyword on the top of your files.
 
 As such, a file that wants to use theme_extensions_generator will start with:
 ```dart
-import 'package:theme_extensions_annotation/theme_extensions_annotation.dart';
+import 'package:theme_extensions_annotation/theme_extension_annotation.dart';
 
 part 'my_file.g.dart';
 

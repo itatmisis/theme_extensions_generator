@@ -186,7 +186,7 @@ packages:
     source: hosted
     version: "1.1.1"
   flutter:
-    dependency: transitive
+    dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -510,12 +510,11 @@ packages:
   theme_extensions_annotation:
     dependency: "direct main"
     description:
-      path: theme_extensions_annotation
-      ref: HEAD
-      resolved-ref: "2d18dbfd45045951b723ed239aaa7f0e1ec62572"
-      url: "https://github.com/MiiMan/theme_extensions_generator.git"
-    source: git
-    version: "1.0.0"
+      name: theme_extensions_annotation
+      sha256: e3e34345841942996e1d78e1660e346ec960a7744217c71765bb7a00713067fb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   typed_data:
     dependency: transitive
     description:

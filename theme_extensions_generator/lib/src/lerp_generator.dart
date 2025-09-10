@@ -44,7 +44,7 @@ class TransformModel {
 
 }
 
-extension _ on List<String> {
+extension ToLerpModels on List<String> {
   Iterable<TransformModel> toLerpModels() {
     return expand<TransformModel>((element) => [TransformModel(DataType(element))]);
   }

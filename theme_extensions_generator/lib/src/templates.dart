@@ -212,8 +212,9 @@ class Templates {
   ) {
     var lerpType = generator.transformFunction(themeType);
 
-    if (lerpType is! LerpGeneratorResultFound)
+    if (lerpType is! LerpGeneratorResultFound) {
       throw UnsupportedError('Theme class not registered in lerpGenerator');
+    }
 
     extensionGetterName ??=
         extensionType.name[0].toLowerCase() + extensionType.name.substring(1);
