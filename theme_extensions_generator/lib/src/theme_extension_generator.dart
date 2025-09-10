@@ -14,16 +14,16 @@ import 'templates.dart';
 
 class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
   void forEachField(
-      Map<ParameterElement, List<ElementAnnotation>> fields,
+      Map<FormalParameterElement, List<ElementAnnotation>> fields,
       Map<
               String,
               void Function(String type, String varname,
-                  ParameterElement element, DartObject? computeObject)>
+                  FormalParameterElement element, DartObject? computeObject)>
           on) {
     for (var f in fields.entries) {
       if (fields[f.key]!.isEmpty && on.containsKey('null')) {
         on['null']!(f.key.type.getDisplayString(withNullability: false),
-            f.key.name, f.key, null);
+            f.key.name!, f.key, null);
       }
 
       for (var m in fields[f.key]!) {
@@ -31,27 +31,27 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
         name = name.replaceRange(name.indexOf('(') + 1, name.length - 1, '');
         if (on.containsKey(name)) {
           on[name]!(f.key.type.getDisplayString(withNullability: false),
-              f.key.name, f.key, m.computeConstantValue());
+              f.key.name!, f.key, m.computeConstantValue());
           break;
         }
       }
     }
   }
 
-  Map<ParameterElement, List<ElementAnnotation>> inspectConstructor(
+  Map<FormalParameterElement, List<ElementAnnotation>> inspectConstructor(
       ConstructorElement element) {
-    Map<ParameterElement, List<ElementAnnotation>> inspect = {};
+    Map<FormalParameterElement, List<ElementAnnotation>> inspect = {};
 
     for (var e in element.children) {
-      final parameterElement = e as ParameterElement;
-      inspect[parameterElement] = e.metadata;
+      final parameterElement = e as FormalParameterElement;
+      inspect[parameterElement] = e.metadata.annotations;
     }
 
     return inspect;
   }
 
   List<Parameter> parseFields(
-      Map<ParameterElement, List<ElementAnnotation>> parameters,
+      Map<FormalParameterElement, List<ElementAnnotation>> parameters,
       LerpGenerator generator) {
     List<Parameter> p = [];
     forEachField(parameters, {
@@ -125,7 +125,7 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
 
     var result = '';
 
-    var targetType = DataType(classImpl.name);
+    var targetType = DataType(classImpl.name!);
     var mixinType = DataType('_\$${classImpl.name}');
     var decorationType = DataType('${classImpl.name}Decoration');
     var implementationType = DataType('_${classImpl.name}');

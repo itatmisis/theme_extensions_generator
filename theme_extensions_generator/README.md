@@ -38,6 +38,14 @@ All of them are supported by this generator.
 |-------------------------------|----------------------------------|
 |![before](https://github.com/itatmisis/theme_extensions_generator/blob/master/theme_extensions_generator/docs/before.png?raw=true)     |![after](https://github.com/itatmisis/theme_extensions_generator/blob/master/theme_extensions_generator/docs/after.png?raw=true)          |
 
+## Special Thanks
+
+A big thank you to [@drooxie](https://github.com/drooxie) for contributing the `extensionGetterName` parameter.
+
+## Contributing
+
+We are open to pull requests and feature suggestions! If you have an idea or want to contribute, please feel free to open an issue or submit a pull request.
+
 # Index
 
 - [Motivation](#motivation)
