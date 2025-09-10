@@ -1,5 +1,5 @@
 name: theme_extensions_annotation
-description: annotations for theme_extensions_generator
+description: annotations for theme_extensions_generator. This package does nothing without theme_extensions_generator too.
 version: 1.1.2
 repository: https://github.com/MiiMan/theme_extensions_generator
 
