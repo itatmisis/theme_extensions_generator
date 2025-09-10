@@ -1,3 +1,7 @@
+## 1.2.1
+
+- **Compatibility**: Relaxed dependency constraints (analyzer) to support wider versions
+
 ## 1.2.0
 
 - **Feature**: Deep-copy. See [deep copy documentation](https://github.com/itatmisis/theme_extensions_generator/blob/master/theme_extensions_generator/doc/deep_copy_functionality.md).

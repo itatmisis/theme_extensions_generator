@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:analyzer/dart/constant/value.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:theme_extensions_annotation/theme_extension_annotation.dart';
 
@@ -23,7 +24,7 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
     for (var f in fields.entries) {
       if (fields[f.key]!.isEmpty && on.containsKey('null')) {
         on['null']!(f.key.type.getDisplayString().replaceAll('?', ''),
-            f.key.name!, f.key, null);
+            f.key.displayName, f.key, null);
       }
 
       for (var m in fields[f.key]!) {
@@ -31,7 +32,7 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
         name = name.replaceRange(name.indexOf('(') + 1, name.length - 1, '');
         if (on.containsKey(name)) {
           on[name]!(f.key.type.getDisplayString().replaceAll('?', ''),
-              f.key.name!, f.key, m.computeConstantValue());
+              f.key.displayName, f.key, m.computeConstantValue());
           break;
         }
       }
@@ -39,12 +40,12 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
   }
 
   Map<FormalParameterElement, List<ElementAnnotation>> inspectConstructor(
-      ConstructorElement element) {
+      ConstructorElement2 element) {
     Map<FormalParameterElement, List<ElementAnnotation>> inspect = {};
 
-    for (var e in element.children) {
+    for (var e in element.children2) {
       final parameterElement = e as FormalParameterElement;
-      inspect[parameterElement] = e.metadata.annotations;
+      inspect[parameterElement] = e.metadata2.annotations;
     }
 
     return inspect;
@@ -124,12 +125,12 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
 
   @override
   FutureOr<String> generateForAnnotatedElement(
-    Element element,
+    Element2 element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    var classImpl = element as ClassElement;
-    var constructorImpl = element.children[0] as ConstructorElement;
+    var classImpl = element as ClassElement2;
+    var constructorImpl = element.children2[0] as ConstructorElement2;
 
     var result = '';
 
