@@ -1,3 +1,7 @@
+## 1.1.4
+
+- **Compatibility**: Relaxed dependency constraints (build/source_gen) to support wider versions
+
 ## 1.1.3
 
 - **Docs**: Added Dartdoc comments to public APIs
