@@ -1,28 +1,31 @@
 import 'constants.dart';
 import 'models.dart';
 
-enum TransformState {
-  tween, lerp;
-}
+/// Describes how a value should be interpolated.
+enum TransformState { tween, lerp }
 
-class LerpGeneratorResult {
-  const LerpGeneratorResult();
-}
+/// Base type for `LerpGenerator.transformFunction` results.
+class LerpGeneratorResult { const LerpGeneratorResult(); }
 
-class LerpGeneratorResultNone extends LerpGeneratorResult {
-  const LerpGeneratorResultNone();
-}
+/// A marker result meaning no transform rule was found.
+class LerpGeneratorResultNone extends LerpGeneratorResult { const LerpGeneratorResultNone(); }
 
+/// A successful transform rule with [state] and [namespaceType].
 class LerpGeneratorResultFound extends LerpGeneratorResult {
+  /// Whether to use tween or lerp strategy.
   final TransformState state;
+  /// Type that owns lerp/tween implementation (may differ from target type).
   final DataType namespaceType;
 
   const LerpGeneratorResultFound(this.state, this.namespaceType);
 }
 
 
+/// Describes mapping for a type to a lerp/tween namespace.
 class TransformModel {
+  /// Type to be transformed.
   final DataType targetType;
+  /// Type that provides the lerp/tween static method.
   final DataType namespaceType;
 
   const TransformModel(this.targetType): namespaceType = targetType;
@@ -34,14 +37,10 @@ class TransformModel {
   }
 
   @override
-  // TODO: implement hashCode
   int get hashCode => targetType.hashCode;
 
   @override
-  bool operator ==(Object other) {
-    // TODO: implement ==
-    return hashCode == other.hashCode;
-  }
+  bool operator ==(Object other) => other is TransformModel && other.targetType == targetType;
 
 }
 
@@ -51,6 +50,7 @@ extension _ on List<String> {
   }
 }
 
+/// Holds interpolation rules and resolves how to transform a type.
 class LerpGenerator {
   static final List<TransformModel> _initialTweenDataTypeNames = [...Constants.typeNamesTween.toLerpModels()];
   static final List<TransformModel> _initialLerpDataTypeNames = [...Constants.typeNamesLerp.toLerpModels()];
@@ -58,14 +58,13 @@ class LerpGenerator {
   final List<TransformModel> _tweenDataTypeNames = [..._initialTweenDataTypeNames];
   final List<TransformModel> _lerpDataTypeNames = [..._initialLerpDataTypeNames];
 
-  void addTweenTypename(TransformModel model) {
-    _tweenDataTypeNames.add(model);
-  }
+  /// Registers an additional tween rule.
+  void addTweenTypename(TransformModel model) { _tweenDataTypeNames.add(model); }
 
-  void addLerpTypename(TransformModel model) {
-    _lerpDataTypeNames.add(model);
-  }
+  /// Registers an additional lerp rule.
+  void addLerpTypename(TransformModel model) { _lerpDataTypeNames.add(model); }
 
+  /// Returns a rule describing how to transform [type].
   LerpGeneratorResult transformFunction(DataType type) {
     for (var t in _tweenDataTypeNames) {
       if (type == t.targetType) {

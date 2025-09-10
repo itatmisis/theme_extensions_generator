@@ -1,3 +1,4 @@
+/// Internal constants used during code generation.
 class Constants {
   static const String varnameTransform = 't';
 

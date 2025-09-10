@@ -2,7 +2,9 @@ import 'constants.dart';
 import 'lerp_generator.dart';
 import 'models.dart';
 
+/// Renders fragments of generated source code for themes.
 class Templates {
+    /// Emits expression that tweens between `a` and `b` for the given [type].
   static String generateTween(DataType type, String a, String b) {
     if (type.toString() == 'int') {
       return 'IntTween(begin: $a, end: $b).transform(${Constants.varnameTransform})';
@@ -11,10 +13,12 @@ class Templates {
     return 'Tween<$type>(begin: $a, end: $b).transform(${Constants.varnameTransform})';
   }
 
+    /// Emits expression that calls `<Type>.lerp(a, b, t)`; adds `!` if non-nullable.
   static String generateLerp(DataType type, String a, String b, bool nullable) {
     return '$type.lerp($a, $b, ${Constants.varnameTransform})${nullable ? '' : '!'}';
   }
 
+    /// Emits constructor parameter list like `{required this.a, ...}`.
   static String generateConstructorParameters(Iterable<Parameter> parameters) {
     String e = '';
 
@@ -25,6 +29,7 @@ class Templates {
     return '{$e}';
   }
 
+    /// Emits method parameter list like `{Type? a, ...}` with optional `required`.
   static String generateMethodParameters(Iterable<Parameter> parameters,
       [bool isNullable = false]) {
     String e = '';
@@ -37,6 +42,7 @@ class Templates {
     return '{$e}';
   }
 
+    /// Emits `final` fields for the class from [parameters].
   static String generateClassFields(Iterable<Parameter> parameters) {
     String e = '';
 
@@ -47,11 +53,13 @@ class Templates {
     return e;
   }
 
+    /// Emits `const` constructor for [type].
   static String generateConstructor(
       DataType type, Iterable<Parameter> parameters) {
     return 'const $type(${generateConstructorParameters(parameters)});';
   }
 
+    /// Emits `copyWith` method for [type].
   static String generateCopyWithMethod(
       DataType type, Iterable<Parameter> parameters) {
     String e = '';
@@ -63,6 +71,7 @@ class Templates {
     return '$type copyWith(${generateMethodParameters(parameters, true)}) => $type($e);';
   }
 
+    /// Emits `copyWithDecoration` method using [decorationType].
   static String generateCopyWithDecorationMethod(
       DataType type, DataType decorationType, Iterable<Parameter> parameters) {
     String e = '';
@@ -74,6 +83,8 @@ class Templates {
     return '$type copyWithDecoration($decorationType? decoration) => decoration != null? $type($e) : this;';
   }
 
+    /// Emits expression that calls `<Type>.lerp(a, b, t)`; adds `!` if non-nullable.
+    /// Emits static `lerp` method for the main theme type.
   static String generateLerpMethod(
       DataType type, Iterable<Parameter> parameters, LerpGenerator generator) {
     String e = '';
@@ -102,6 +113,7 @@ class Templates {
     return 'static $type? lerp($type? a, $type? b, double ${Constants.varnameTransform}) { if (a == null && b == null) return null; if (a == null) return b; if (b == null) return a; return $type($e);}';
   }
 
+    /// Emits decoration class with all fields made nullable.
   static String generateDecorationClass(
       DataType type, Iterable<Parameter> parameters) {
     List<Parameter> changedParameters = [];
@@ -120,6 +132,7 @@ class Templates {
     }''';
   }
 
+    /// Emits main implementation class that implements [parentType].
   static String generateMainClass(
       DataType type,
       DataType parentType,
@@ -140,6 +153,7 @@ class Templates {
     }''';
   }
 
+    /// Emits getters for mixin that throw a private constructor error.
   static String generateMixinGetters(
       Iterable<Parameter> parameters, String errorName) {
     String e = '';
@@ -152,11 +166,13 @@ class Templates {
     return e;
   }
 
+    /// Emits `copyWith` mixin stub that throws.
   static String generateMixinCopyWithMethod(
       DataType parentType, Iterable<Parameter> parameters, String errorName) {
     return '$parentType copyWith(${generateMethodParameters(parameters, true)}) => throw $errorName;';
   }
 
+    /// Emits `copyWithDecoration` mixin stub that throws.
   static String generateMixinCopyWithDecorationMethod(
       DataType parentType,
       DataType decorationType,
@@ -165,6 +181,7 @@ class Templates {
     return '$parentType copyWithDecoration($decorationType? decoration) => throw $errorName;';
   }
 
+    /// Emits mixin declaration for the annotated theme type.
   static String generateMixin(
       DataType type,
       DataType parentType,
@@ -186,6 +203,7 @@ class Templates {
     }''';
   }
 
+    /// Emits ThemeData extension and ThemeExtension wrapper class.
   static String generateThemeExtension(
     DataType extensionType,
     DataType themeType,
