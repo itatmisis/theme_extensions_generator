@@ -12,23 +12,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
 
       - name: Install dependencies (annotation)
         working-directory: theme_extensions_annotation
-        run: dart pub get
+        run: flutter pub get
 
       - name: Analyze annotation
         working-directory: theme_extensions_annotation
-        run: dart analyze lib
+        run: flutter analyze lib
 
       - name: Install dependencies (generator)
         working-directory: theme_extensions_generator
-        run: dart pub get
+        run: flutter pub get
 
       - name: Analyze generator
         working-directory: theme_extensions_generator
-        run: dart analyze lib
+        run: flutter analyze lib
 
       - name: Run tests (generator)
         working-directory: theme_extensions_generator
