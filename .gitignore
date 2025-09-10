@@ -8,4 +8,5 @@
 .buildlog/
 .history
 .svn/
+.idea/
 migrate_working_dir/
