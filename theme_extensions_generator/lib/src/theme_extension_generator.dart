@@ -140,7 +140,7 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
         .getField('_name')!
         .toStringValue();
     var extensionGetterName =
-        annotation.objectValue.getField('extensionGetterName')!.toStringValue();
+        annotation.objectValue.getField('extensionGetterName')?.toStringValue();
 
     if (annotationType == 'themeOnly') {
       result += Templates.generateMixin(
@@ -163,6 +163,16 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
         lerpGenerator,
         extensionGetterName,
       );
+    }
+
+    // Validate unsupported types for fields that are supposed to be lerpable/tweenable
+    for (final p in parameters) {
+      if (p.allowLerp) {
+        final transform = lerpGenerator.transformFunction(p.type);
+        if (transform is LerpGeneratorResultNone) {
+          throw InvalidGenerationSource('Unsupported type: ${p.type.name}', element: element);
+        }
+      }
     }
 
     return result;
