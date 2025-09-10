@@ -6,8 +6,9 @@ part of 'custom_theme.dart';
 // ThemeExtensionGenerator
 // **************************************************************************
 
+// ignore_for_file: invalid_null_aware_operator, unnecessary_this, prefer_const_constructors, unnecessary_const, prefer_const_literals_to_create_immutables, avoid_redundant_argument_values
 final _ActionButtonThemePrivateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `ActionButtonTheme._()`. This constructor is only meant to be used by themeExtended and you are not supposed to need it nor use it.');
+    "It seems like you constructed your class using `ActionButtonTheme._()`. This constructor is only meant to be used by themeExtended and you are not supposed to need it nor use it.");
 
 mixin _$ActionButtonTheme {
   Color get backgroundColor =>
@@ -54,11 +55,9 @@ class _ActionButtonTheme implements ActionButtonTheme {
           ActionButtonThemeDecoration? decoration) =>
       decoration != null
           ? _ActionButtonTheme(
-              backgroundColor:
-                  decoration.backgroundColor ?? this.backgroundColor,
-              foregroundColor:
-                  decoration.foregroundColor ?? this.foregroundColor,
-              icon: decoration.icon ?? this.icon,
+              backgroundColor: decoration.backgroundColor ?? backgroundColor,
+              foregroundColor: decoration.foregroundColor ?? foregroundColor,
+              icon: decoration.icon ?? icon,
             )
           : this;
 
@@ -87,8 +86,9 @@ class ActionButtonThemeDecoration {
   });
 }
 
+// ignore_for_file: invalid_null_aware_operator, unnecessary_this, prefer_const_constructors, unnecessary_const, prefer_const_literals_to_create_immutables, avoid_redundant_argument_values
 final _CustomThemePrivateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `CustomTheme._()`. This constructor is only meant to be used by themeExtended and you are not supposed to need it nor use it.');
+    "It seems like you constructed your class using `CustomTheme._()`. This constructor is only meant to be used by themeExtended and you are not supposed to need it nor use it.");
 
 mixin _$CustomTheme {
   Color get backgroundColor => throw _CustomThemePrivateConstructorUsedError;
@@ -150,15 +150,13 @@ class _CustomTheme implements CustomTheme {
   _CustomTheme copyWithDecoration(CustomThemeDecoration? decoration) =>
       decoration != null
           ? _CustomTheme(
-              backgroundColor:
-                  decoration.backgroundColor ?? this.backgroundColor,
-              foregroundColor:
-                  decoration.foregroundColor ?? this.foregroundColor,
-              textColor: decoration.textColor ?? this.textColor,
-              textAlign: decoration.textAlign ?? this.textAlign,
+              backgroundColor: decoration.backgroundColor ?? backgroundColor,
+              foregroundColor: decoration.foregroundColor ?? foregroundColor,
+              textColor: decoration.textColor ?? textColor,
+              textAlign: decoration.textAlign ?? textAlign,
               actionButtonTheme:
-                  decoration.actionButtonTheme ?? this.actionButtonTheme,
-              themeName: decoration.themeName ?? this.themeName,
+                  decoration.actionButtonTheme ?? actionButtonTheme,
+              themeName: decoration.themeName ?? themeName,
             )
           : this;
 

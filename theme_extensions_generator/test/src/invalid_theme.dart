@@ -7,8 +7,7 @@ part 'invalid_theme.g.dart';
 @ThemeExtended()
 class InvalidTheme with _$InvalidTheme {
   const factory InvalidTheme({
-    @ThemeProperty()
-    required NonLerpableType invalidField,
+    @ThemeProperty() required NonLerpableType invalidField,
   }) = _InvalidTheme;
 }
 

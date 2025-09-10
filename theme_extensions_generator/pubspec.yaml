@@ -1,6 +1,6 @@
 name: theme_extensions_generator
 description: Generates ThemeExtension classes, mixins, lerp/tween logic and ThemeData accessors for Flutter themes
-version: 1.1.4
+version: 1.2.0
 repository: https://github.com/MiiMan/theme_extensions_generator
 
 environment:
@@ -10,7 +10,7 @@ dependencies:
   build: '>=3.0.0 <5.0.0'
   analyzer: ^8.0.0
   source_gen: '>=3.0.0 <4.1.0'
-  theme_extensions_annotation: ^1.1.1
+  theme_extensions_annotation: ^1.2.0
 
 dev_dependencies:
   build_test: any

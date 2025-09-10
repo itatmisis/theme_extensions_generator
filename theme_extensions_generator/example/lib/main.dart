@@ -52,9 +52,8 @@ class _MyAppState extends State<MyApp> {
       home: MyHomePage(
         title: 'Flutter Demo Home Page',
         switchTheme: switchTheme,
-        decoration: CustomThemeDecoration(
-          themeName: 'Override by decoration'
-        ),
+        decoration:
+            const CustomThemeDecoration(themeName: 'Override by decoration'),
       ),
     );
   }

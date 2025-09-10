@@ -66,12 +66,20 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
       '@ThemeProperty.styled()': (t, v, e, c) {
         generator.addLerpTypename(
             TransformModel.withNamespace(DataType(t), DataType('_$t')));
+
+        // Check if enableDeepCopy is set to true
+        var enableDeepCopy =
+            c?.getField('enableDeepCopy')?.toBoolValue() ?? false;
+        var annotation = enableDeepCopy
+            ? ParameterAnnotation.deepStyleParameter
+            : ParameterAnnotation.styleParameter;
+
         p.add(Parameter(
             v,
             DataType(t),
             e.type.nullabilitySuffix == NullabilitySuffix.question,
             e.isRequiredNamed,
-            annotation: ParameterAnnotation.styleParameter));
+            annotation: annotation));
       },
       '@ThemeProperty.lerp()': (t, v, e, c) {
         var targetType = c!.getField('targetType')!.toStringValue();
@@ -170,7 +178,8 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
       if (p.allowLerp) {
         final transform = lerpGenerator.transformFunction(p.type);
         if (transform is LerpGeneratorResultNone) {
-          throw InvalidGenerationSource('Unsupported type: ${p.type.name}', element: element);
+          throw InvalidGenerationSource('Unsupported type: ${p.type.name}',
+              element: element);
         }
       }
     }

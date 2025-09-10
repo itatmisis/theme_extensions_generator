@@ -274,6 +274,55 @@ Then use it to access extension:
 var theme = Theme.of(context).customTheme;
 ```
 
+## Deep Copy Enhancement for Styled Themes
+
+The `@ThemeProperty.styled()` annotation now supports an optional `enableDeepCopy` parameter that provides automatic deep merging for complex nested theme structures.
+
+### Enhancement Overview
+
+**Existing Behavior (Unchanged):**
+```dart
+@ThemeProperty.styled()  // Works exactly as before
+required ChildTheme childTheme,
+```
+
+**Enhanced Behavior (Opt-in):**
+```dart
+@ThemeProperty.styled(enableDeepCopy: true)  // New enhanced functionality
+required ChildTheme childTheme,
+```
+
+### Problem Solved
+
+With complex nested themes, manual deep merging was required:
+
+```dart
+// Before enhancement - manual deep merging
+theme = theme.copyWithDecoration(ParentDecoration(
+  childTheme: theme.childTheme.copyWithDecoration(childDecoration),
+  anotherChild: theme.anotherChild.copyWithDecoration(anotherDecoration),
+));
+```
+
+### Solution
+
+With `enableDeepCopy: true`, automatic deep merging is provided:
+
+```dart
+// After enhancement - automatic deep merging
+theme = theme.copyWithDecoration(ParentDecoration(
+  childTheme: ChildDecoration(backgroundColor: Colors.red),
+  anotherChild: AnotherChildDecoration(textSize: 16.0),
+));
+```
+
+**Key Changes with `enableDeepCopy: true`:**
+- Decoration classes use decoration types instead of full theme types
+- `copyWithDecoration` automatically performs recursive merging
+- Single decoration object can customize entire hierarchy
+
+For detailed examples and advanced usage, see [deep copy documentation](https://github.com/itatmisis/theme_extensions_generator/blob/master/theme_extensions_generator/doc/deep_copy_functionality.md).
+
 ## ThemeExtension initializing and registration
 
 According to the [Flutter documentation](https://api.flutter.dev/flutter/material/ThemeExtension-class.html), to register a theme extension, you need to add the generated `ThemeExtension` class, as shown in the example below:

@@ -24,6 +24,11 @@ Future<void> main() async {
     'example_custom_theme.dart',
   );
 
+  final deepCopyTheme = await initializeLibraryReaderForDirectory(
+    'test/src',
+    'deep_copy_theme.dart',
+  );
+
   initializeBuildLogTracking();
 
   testAnnotatedElements<ThemeExtended>(
@@ -43,6 +48,11 @@ Future<void> main() async {
 
   testAnnotatedElements<ThemeExtended>(
     exampleCustomTheme,
+    ThemeExtensionGenerator(),
+  );
+
+  testAnnotatedElements<ThemeExtended>(
+    deepCopyTheme,
     ThemeExtensionGenerator(),
   );
 }

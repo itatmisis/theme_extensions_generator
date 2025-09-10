@@ -2,7 +2,7 @@ class DataType {
   final String name;
 
   const DataType(this.name);
-  
+
   @override
   String toString() {
     return name;
@@ -26,14 +26,17 @@ class Field {
 }
 
 enum ParameterAnnotation {
-  themeParameter, styleParameter, none
+  themeParameter,
+  styleParameter,
+  deepStyleParameter,
+  none
 }
-
 
 class Parameter extends Field {
   final bool required;
   final bool allowLerp;
   final ParameterAnnotation annotation;
 
-  const Parameter(super.name, super.type, super.nullable, this.required, {this.allowLerp = true, this.annotation = ParameterAnnotation.none});
+  const Parameter(super.name, super.type, super.nullable, this.required,
+      {this.allowLerp = true, this.annotation = ParameterAnnotation.none});
 }

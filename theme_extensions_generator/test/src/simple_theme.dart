@@ -19,9 +19,7 @@ class SimpleThemeExtension extends ThemeExtension<SimpleThemeExtension> {
 @ThemeExtended()
 class SimpleTheme with _$SimpleTheme {
   const factory SimpleTheme({
-    @ThemeProperty()
-    required Color backgroundColor,
-    @ThemeProperty()
-    required Color foregroundColor,
+    @ThemeProperty() required Color backgroundColor,
+    @ThemeProperty() required Color foregroundColor,
   }) = _SimpleTheme;
 }

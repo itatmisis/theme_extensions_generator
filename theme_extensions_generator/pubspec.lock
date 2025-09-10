@@ -519,10 +519,10 @@ packages:
     dependency: "direct main"
     description:
       name: theme_extensions_annotation
-      sha256: e3e34345841942996e1d78e1660e346ec960a7744217c71765bb7a00713067fb
+      sha256: c88cbfe3418ee58f399dd8dc167d9c3b712c3c517ab8ee17ce303969ff7e0a0c
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.0"
   timing:
     dependency: transitive
     description:
