@@ -36,7 +36,7 @@ All of them are supported by this generator.
 
 | You write                     | Autogen do                       |
 |-------------------------------|----------------------------------|
-|![before](https://github.com/itatmisis/theme_extensions_generator/blob/master/theme_extensions_generator/docs/before.png?raw=true)     |![after](https://github.com/itatmisis/theme_extensions_generator/blob/master/theme_extensions_generator/docs/after.png?raw=true)          |
+|![before](https://github.com/itatmisis/theme_extensions_generator/blob/master/theme_extensions_generator/doc/before.png?raw=true)     |![after](https://github.com/itatmisis/theme_extensions_generator/blob/master/theme_extensions_generator/doc/after.png?raw=true)          |
 
 ## Special Thanks
 
