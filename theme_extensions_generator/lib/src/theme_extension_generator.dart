@@ -125,11 +125,11 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
 
     var result = '';
 
-    var targetType = DataType(classImpl.name!);
-    var mixinType = DataType('_\$${classImpl.name}');
-    var decorationType = DataType('${classImpl.name}Decoration');
-    var implementationType = DataType('_${classImpl.name}');
-    var extensionType = DataType('${classImpl.name}Extension');
+    var targetType = DataType(classImpl.displayName);
+    var mixinType = DataType('_\$${classImpl.displayName}');
+    var decorationType = DataType('${classImpl.displayName}Decoration');
+    var implementationType = DataType('_${classImpl.displayName}');
+    var extensionType = DataType('${classImpl.displayName}Extension');
 
     var lerpGenerator = LerpGenerator();
     var parameters =
