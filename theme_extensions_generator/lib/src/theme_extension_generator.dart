@@ -22,7 +22,7 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
           on) {
     for (var f in fields.entries) {
       if (fields[f.key]!.isEmpty && on.containsKey('null')) {
-        on['null']!(f.key.type.getDisplayString(withNullability: false),
+        on['null']!(f.key.type.getDisplayString().replaceAll('?', ''),
             f.key.name!, f.key, null);
       }
 
@@ -30,7 +30,7 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
         var name = m.toSource();
         name = name.replaceRange(name.indexOf('(') + 1, name.length - 1, '');
         if (on.containsKey(name)) {
-          on[name]!(f.key.type.getDisplayString(withNullability: false),
+          on[name]!(f.key.type.getDisplayString().replaceAll('?', ''),
               f.key.name!, f.key, m.computeConstantValue());
           break;
         }
