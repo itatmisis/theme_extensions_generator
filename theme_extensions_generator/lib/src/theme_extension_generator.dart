@@ -5,7 +5,6 @@ import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:theme_extensions_annotation/theme_extension_annotation.dart';
 
-import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -124,12 +123,6 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
     });
 
     return p;
-  }
-
-  String generateSource(Element element) {
-    String result = '';
-
-    return result;
   }
 
   @override
