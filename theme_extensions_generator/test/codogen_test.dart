@@ -327,7 +327,7 @@ void main() {
 
       var l = LerpGenerator()
         ..addLerpTypename(TransformModel.withNamespace(
-            DataType('TestType'), DataType('_TestType')));
+            DataType('TestType'), DataType('TestTypeLerp')));
 
       var t = Templates.generateLerpMethod(type, p, l);
       print(t);
@@ -442,6 +442,7 @@ void main() {
             contains(Templates.generateCopyWithDecorationMethod(
                 type, decorationType, p)),
             contains(Templates.generateLerpMethod(parentType, p, l)),
+            contains(Templates.generateLerpPublicExtension(parentType, type)),
             contains('}')
           ]));
     });
@@ -550,7 +551,7 @@ void main() {
 
       var l = LerpGenerator();
       l.addLerpTypename(
-          TransformModel.withNamespace(themeType, DataType('_TestType')));
+          TransformModel.withNamespace(themeType, DataType('TestTypeLerp')));
 
       var t = Templates.generateThemeExtension(
         extensionType,
@@ -566,6 +567,7 @@ void main() {
             contains('class TestTypeExtension'),
             contains(
                 'TestType get testTypeExtension => this.extension<TestTypeExtension>()!.theme;'),
+            contains('TestTypeLerp.lerp(theme, other.theme, t)!'),
           ]));
     });
 
@@ -575,7 +577,7 @@ void main() {
 
       var l = LerpGenerator();
       l.addLerpTypename(
-          TransformModel.withNamespace(themeType, DataType('_TestType')));
+          TransformModel.withNamespace(themeType, DataType('TestTypeLerp')));
 
       var t = Templates.generateThemeExtension(
         extensionType,
@@ -591,6 +593,7 @@ void main() {
             contains('class TestTypeExtension'),
             contains(
                 'TestType get veryCustomExtensionName => this.extension<TestTypeExtension>()!.theme;'),
+            contains('TestTypeLerp.lerp(theme, other.theme, t)!'),
           ]));
     });
   });

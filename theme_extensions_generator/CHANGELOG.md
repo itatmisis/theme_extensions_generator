@@ -1,3 +1,7 @@
+## 1.2.2
+
+- **Fix**: `@ThemeProperty.styled()` now emits a public lerp entry (`extension {Theme}Lerp on {Theme}` with `static lerp`) so nested themes work across libraries; `ThemeExtension.lerp` uses the same public namespace. Remove any hand-written `{Theme}Lerp` duplicates if you added them as a workaround.
+
 ## 1.2.1
 
 - **Compatibility**: Relaxed dependency constraints (analyzer) to support wider versions

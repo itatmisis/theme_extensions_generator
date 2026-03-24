@@ -13,6 +13,15 @@ import 'lerp_generator.dart';
 import 'models.dart';
 import 'templates.dart';
 
+/// Public lerp namespace for generated extensions: `{SimpleName}Lerp`.
+String _lerpNamespaceForThemeType(String displayType) {
+  final normalized = displayType.replaceAll('?', '');
+  final dot = normalized.lastIndexOf('.');
+  final simple =
+      dot == -1 ? normalized : normalized.substring(dot + 1);
+  return '${simple}Lerp';
+}
+
 class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
   void forEachField(
       Map<FormalParameterElement, List<ElementAnnotation>> fields,
@@ -65,8 +74,8 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
             annotation: ParameterAnnotation.themeParameter));
       },
       '@ThemeProperty.styled()': (t, v, e, c) {
-        generator.addLerpTypename(
-            TransformModel.withNamespace(DataType(t), DataType('_$t')));
+        generator.addLerpTypename(TransformModel.withNamespace(
+            DataType(t), DataType(_lerpNamespaceForThemeType(t))));
 
         // Check if enableDeepCopy is set to true
         var enableDeepCopy =
@@ -164,8 +173,8 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
           decorationType, parameters, lerpGenerator);
       result += Templates.generateDecorationClass(decorationType, parameters);
 
-      lerpGenerator.addLerpTypename(
-          TransformModel.withNamespace(targetType, implementationType));
+      lerpGenerator.addLerpTypename(TransformModel.withNamespace(
+          targetType, DataType(_lerpNamespaceForThemeType(classImpl.displayName))));
       result += Templates.generateThemeExtension(
         extensionType,
         targetType,

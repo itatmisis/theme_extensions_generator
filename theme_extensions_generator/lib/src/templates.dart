@@ -120,6 +120,18 @@ class Templates {
     return 'static $type? lerp($type? a, $type? b, double ${Constants.varnameTransform}) { if (a == null && b == null) return null; if (a == null) return b; if (b == null) return a; return $type($e);}';
   }
 
+  /// Public static lerp entry (extension) delegating to [implementationType].lerp.
+  static String generateLerpPublicExtension(
+      DataType parentType, DataType implementationType) {
+    return '''
+extension ${parentType}Lerp on $parentType {
+  static $parentType? lerp($parentType? a, $parentType? b, double ${Constants.varnameTransform}) {
+    return $implementationType.lerp(a, b, ${Constants.varnameTransform});
+  }
+}
+''';
+  }
+
   /// Emits decoration class with all fields made nullable.
   /// For styled parameters, uses corresponding decoration types instead of theme types.
   static String generateDecorationClass(
@@ -165,7 +177,8 @@ class Templates {
       ${generateCopyWithDecorationMethod(type, decorationType, parameters)}
       
       ${generateLerpMethod(parentType, parameters, generator)}
-    }''';
+    }
+    ${generateLerpPublicExtension(parentType, type)}''';
   }
 
   /// Emits getters for mixin that throw a private constructor error.

@@ -74,6 +74,13 @@ class _ActionButtonTheme implements ActionButtonTheme {
   }
 }
 
+extension ActionButtonThemeLerp on ActionButtonTheme {
+  static ActionButtonTheme? lerp(
+      ActionButtonTheme? a, ActionButtonTheme? b, double t) {
+    return _ActionButtonTheme.lerp(a, b, t);
+  }
+}
+
 class ActionButtonThemeDecoration {
   final Color? backgroundColor;
   final Color? foregroundColor;
@@ -169,10 +176,16 @@ class _CustomTheme implements CustomTheme {
       foregroundColor: Color.lerp(a.foregroundColor, b.foregroundColor, t)!,
       textColor: Color.lerp(a.textColor, b.textColor, t)!,
       textAlign: Alignment.lerp(a.textAlign, b.textAlign, t),
-      actionButtonTheme:
-          _ActionButtonTheme.lerp(a.actionButtonTheme, b.actionButtonTheme, t)!,
+      actionButtonTheme: ActionButtonThemeLerp.lerp(
+          a.actionButtonTheme, b.actionButtonTheme, t)!,
       themeName: b.themeName,
     );
+  }
+}
+
+extension CustomThemeLerp on CustomTheme {
+  static CustomTheme? lerp(CustomTheme? a, CustomTheme? b, double t) {
+    return _CustomTheme.lerp(a, b, t);
   }
 }
 
@@ -212,6 +225,6 @@ class CustomThemeExtension extends ThemeExtension<CustomThemeExtension> {
   @override
   CustomThemeExtension lerp(CustomThemeExtension? other, double t) {
     if (other == null) return this;
-    return CustomThemeExtension(_CustomTheme.lerp(theme, other.theme, t)!);
+    return CustomThemeExtension(CustomThemeLerp.lerp(theme, other.theme, t)!);
   }
 }
