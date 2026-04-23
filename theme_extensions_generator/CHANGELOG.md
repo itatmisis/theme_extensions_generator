@@ -1,3 +1,8 @@
+## 1.2.4
+
+- Compatibility: Clarify the legacy `source_gen` 3.x line as Dart 3.7+.
+- Compatibility: Relax dependency constraints within the `build` 3 / `source_gen` 3 stack.
+
 ## 1.2.3
 
 - **Fix**: Removed unused `generateSource` stub and the redundant `package:analyzer/dart/element/element.dart` import so analyzer no longer reports deprecated `Element` (old element model) when analyzing this package.
