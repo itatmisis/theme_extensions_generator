@@ -1,3 +1,8 @@
+## 2.0.0
+
+- Compatibility: Require Dart 3.8+ for the intermediate `source_gen` 4 line.
+- Compatibility: Update dependencies to the `source_gen` 4.0-4.2.0 stack.
+
 ## 1.2.4
 
 - Compatibility: Clarify the legacy `source_gen` 3.x line as Dart 3.7+.

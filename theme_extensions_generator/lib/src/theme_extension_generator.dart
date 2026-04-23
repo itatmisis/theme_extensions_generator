@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:theme_extensions_annotation/theme_extension_annotation.dart';
 
@@ -48,12 +48,12 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
   }
 
   Map<FormalParameterElement, List<ElementAnnotation>> inspectConstructor(
-      ConstructorElement2 element) {
+      ConstructorElement element) {
     Map<FormalParameterElement, List<ElementAnnotation>> inspect = {};
 
-    for (var e in element.children2) {
+    for (var e in element.children) {
       final parameterElement = e as FormalParameterElement;
-      inspect[parameterElement] = e.metadata2.annotations;
+      inspect[parameterElement] = e.metadata.annotations;
     }
 
     return inspect;
@@ -127,12 +127,12 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
 
   @override
   FutureOr<String> generateForAnnotatedElement(
-    Element2 element,
+    Element element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    var classImpl = element as ClassElement2;
-    var constructorImpl = element.children2[0] as ConstructorElement2;
+    var classImpl = element as ClassElement;
+    var constructorImpl = element.children[0] as ConstructorElement;
 
     var result = '';
 
