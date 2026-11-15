@@ -51,9 +51,8 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
       ConstructorElement element) {
     Map<FormalParameterElement, List<ElementAnnotation>> inspect = {};
 
-    for (var e in element.children) {
-      final parameterElement = e as FormalParameterElement;
-      inspect[parameterElement] = e.metadata.annotations;
+    for (final parameterElement in element.formalParameters) {
+      inspect[parameterElement] = parameterElement.metadata.annotations;
     }
 
     return inspect;
@@ -132,7 +131,13 @@ class ThemeExtensionGenerator extends GeneratorForAnnotation<ThemeExtended> {
     BuildStep buildStep,
   ) {
     var classImpl = element as ClassElement;
-    var constructorImpl = element.children[0] as ConstructorElement;
+    var constructorImpl = classImpl.unnamedConstructor;
+    if (constructorImpl == null) {
+      throw InvalidGenerationSource(
+        'Expected an unnamed constructor on ${classImpl.displayName}',
+        element: element,
+      );
+    }
 
     var result = '';
 

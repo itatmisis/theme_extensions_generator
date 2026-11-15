@@ -1,3 +1,9 @@
+## 3.1.0
+
+- Compatibility: Stay on Dart 3.9+ and the `build` 4 stack, and allow `analyzer` through 14.
+- Compatibility: Require `source_gen` 4.2.4 and keep it below 4.3, which needs Dart 3.11 and `build` 5.
+- Fix: Read theme fields from the unnamed constructor's parameters, so generic themes keep working on analyzer 14.7.
+
 ## 3.0.0
 
 - Compatibility: Require Dart 3.9+ for the current `source_gen` 4.2.2 line.
