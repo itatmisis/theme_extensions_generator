@@ -1,3 +1,8 @@
+## 4.0.0
+
+- Compatibility: Require Dart 3.11+ for the `source_gen` 4.3 / `build` 5 stack.
+- Compatibility: Update dependencies to `source_gen` 4.3.1, `analyzer` 14, and `build` 5.
+
 ## 3.1.0
 
 - Compatibility: Stay on Dart 3.9+ and the `build` 4 stack, and allow `analyzer` through 14.
